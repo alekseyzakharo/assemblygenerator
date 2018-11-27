@@ -2,6 +2,8 @@
 #define _SYMTABLE_H
 
 #include "GLOBALS.h"
+#include <vector>
+#include <string>
 
 class Symtable
 {
@@ -9,7 +11,7 @@ class Symtable
         Symtable();
         Symtable(string fileLocation);
 
-        Print();
+        void Print();
 
     private:
         vector<symtableEntry> list;
