@@ -17,7 +17,7 @@ class Symtable
         vector<symtableEntry> list;
 
         void openAndRead(string fileLocation);
-        void Insert(int id, int parent);
+        void Insert(string id, string parent);
 
 };
 

@@ -1,18 +1,28 @@
 #include <iostream>
-#include "symbols.h"
-#include "instructions.h"
-#include "symtable.h"
+#include <cstring>
+#include "assembler.h"
 
 using namespace std;
 
-int main(){
-
-    Symbols s("");
-    Instructions i("");
-    Symtable st("");
+string DEFAULTNAME = "test.s";
 
 
-    s.Print();
-    i.Print();
-    st.Print();
+int main(int argc, char * argv[]){
+
+    Assembler *s;
+    if(argc  == 2)
+    {
+        s = new Assembler(argv[1]);
+    }
+    else
+    {
+        s = new Assembler("");
+    }
+
+
+    s->Build();
+
+    s->PrintCSVContent();
+
+    return 0;
 }

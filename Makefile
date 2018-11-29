@@ -1,6 +1,6 @@
 CC := g++
-CFLAGS := -O3 -g3 -Wall -fPIC -std=c++11
-TARGET := assignment4
+CFLAGS := -O3 -g3 -w -Wall -fPIC -std=c++11
+TARGET := cmpt379Complier
 
 # $(wildcard *.cpp /xxx/xxx/*.cpp): get all .cpp files from the current directory and dir "/xxx/xxx/"
 SRCS := $(wildcard *.cpp)
@@ -17,4 +17,4 @@ clean:
 	rm -rf *.o
 
 run:
-	./$(TARGET)
+	./$(TARGET) csvFiles/ > test.s

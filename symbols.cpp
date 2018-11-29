@@ -51,23 +51,18 @@ void Symbols::openAndRead(string fileLocation)
             }
             //get str values from the record vector
             //insert into the list
-            int id;
-            stringstream(record.at(0)) >> id;
-            int tabid;
-            stringstream(record.at(1)) >> tabid;
-            string name = record.at(2);
-            string type = record.at(3);
-            string scope = record.at(4);
-            bool isArray;
-            istringstream(record.at(5)) >> isArray;
-            int arrSize;
-            stringstream(record.at(6)) >> arrSize;
-            bool isInited;
-            istringstream(record.at(7)) >> isInited;
-            int i;
-            stringstream(record.at(8)) >> i;
-            bool b;
-            istringstream(record.at(9)) >> b;
+            
+            string id, tabid, name, type, scope, isArray, arrSize, isInited, i, b;
+            id = record.at(0);
+            tabid = record.at(1);
+            name = record.at(2);
+            type = record.at(3);
+            scope = record.at(4);
+            isArray = record.at(5);
+            arrSize = record.at(6);
+            isInited = record.at(7);
+            i = record.at(8);
+            b = record.at(9);
 
             Insert(id, tabid, name, type, scope, isArray, arrSize, isInited, i, b);
         }
@@ -80,7 +75,7 @@ void Symbols::openAndRead(string fileLocation)
     symbolFile.close();
 }
 
-void Symbols::Insert(int id, int tabid, string name, string type, string scope, bool isArray, int arrSize, bool isInited, int i, bool b)
+void Symbols::Insert(string id, string tabid, string name, string type, string scope, string isArray, string arrSize, string isInited, string i, string b)
 {
     list.push_back(symbolEntry(id, tabid, name, type, scope, isArray, arrSize, isInited, i, b));
 }
@@ -90,16 +85,6 @@ void Symbols::Print()
     cout<<"id   tabid   name    type    scope   isArray arrSize isInited    i   b\n";
     for(symbolEntry n: list)
     {
-        printf("%d %d %s %s %s %s %d %s %d %s\n", n.id, n.tabid, n.name.c_str(), n.type.c_str(), n.scope.c_str(), bts(n.isArray).c_str(), n.arrSize, bts(n.isInited).c_str(), n.i, bts(n.b).c_str());
+        cout<<n.id<<" "<<n.tabid<<" "<<n.name<<" "<<n.type<<" "<<n.scope<<" "<<n.isArray<<" "<<n.arrSize<<" "<<n.isInited<<" "<<n.i<<" "<<n.b<<endl;
     }
-}
-
-//bool to string
-static string bts(bool val)
-{
-    if(val)
-    {
-        return "true";
-    }
-    return "false";
 }

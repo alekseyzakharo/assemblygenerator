@@ -49,15 +49,11 @@ void Instructions::openAndRead(string fileLocation)
             }
             //get str values from the record vector
             //insert into the list
-            int id;
-            stringstream(record.at(0)) >> id;
-            int res;
-            stringstream(record.at(1)) >> res;
+            string id = record.at(0);
+            string res = record.at(1);
             string opcode = record.at(2);
-            int op1;
-            stringstream(record.at(3)) >> op1;
-            int op2;
-            stringstream(record.at(4)) >> op2;
+            string op1 = record.at(3);
+            string op2 = record.at(4);
             Insert(id, res, opcode, op1, op2);
         }
     }
@@ -69,7 +65,7 @@ void Instructions::openAndRead(string fileLocation)
     instructFile.close();
 }
 
-void Instructions::Insert(int id, int res, string opcode, int op1, int op2)
+void Instructions::Insert(string id, string res, string opcode, string op1, string op2)
 {
     list.push_back(instructEntry(id, res, opcode, op1, op2));
 }
@@ -79,6 +75,6 @@ void Instructions::Print()
     cout<<"id   res   opcode   op1  op2   \n";
     for(instructEntry n: list)
     {
-        printf("%d %d %s %d %d\n", n.id, n.res, n.opcode.c_str(), n.op1, n.op2);
+        cout<<n.id<<" "<<n.res<<" "<<n.opcode<<" "<<n.op1<<" "<<n.op2<<endl;
     }
 }

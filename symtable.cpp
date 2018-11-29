@@ -49,10 +49,8 @@ void Symtable::openAndRead(string fileLocation)
             }
             //get str values from the record vector
             //insert into the list
-            int id;
-            stringstream(record.at(0)) >> id;
-            int parent;
-            stringstream(record.at(1)) >> parent;
+            string id = record.at(0);
+            string parent = record.at(1);
             Insert(id, parent);
         }
     }
@@ -64,7 +62,7 @@ void Symtable::openAndRead(string fileLocation)
     symtableFile.close();
 }
 
-void Symtable::Insert(int id,int parent)
+void Symtable::Insert(string id, string parent)
 {
     list.push_back(symtableEntry(id, parent));
 }
@@ -74,6 +72,6 @@ void Symtable::Print()
     cout<<"id   parent   \n";
     for(symtableEntry n: list)
     {
-        printf("%d %d\n", n.id, n.parent);
+        cout<<n.id<<" "<<n.parent<<endl;
     }
 }

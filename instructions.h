@@ -15,11 +15,12 @@ class Instructions{
 
         void Print();
 
-    private:
         vector<instructEntry> list;
 
+    private:
+
         void openAndRead(string fileLocation);
-        void Insert(int id, int res, string opcode, int op1, int op2);
+        void Insert(string id, string res, string opcode, string op1, string op2);
 };
 
 

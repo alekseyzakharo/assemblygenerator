@@ -7,17 +7,17 @@ using namespace std;
 
 struct symbolEntry
 {
-    int id;
-    int tabid;
+    string id;
+    string tabid;
     string name;
     string type;
     string scope;
-    bool isArray;
-    int arrSize;
-    bool isInited;
-    int i;
-    bool b;
-    symbolEntry(int id, int tabid, string name, string type, string scope, bool isArray, int arrSize, bool isInited, int i, bool b)
+    string isArray;
+    string arrSize;
+    string isInited;
+    string i;
+    string b;
+    symbolEntry(string id, string tabid, string name, string type, string scope, string isArray, string arrSize, string isInited, string i, string b)
     {
         this->id = id;
         this->tabid = tabid;
@@ -34,12 +34,12 @@ struct symbolEntry
 
 struct instructEntry
 {
-    int id;
-    int res;
+    string id;
+    string res;
     string opcode;
-    int op1;
-    int op2;
-    instructEntry(int id, int res, string opcode, int op1, int op2)
+    string op1;
+    string op2;
+    instructEntry(string id, string res, string opcode, string op1, string op2)
     {
         this->id = id;
         this->res = res;
@@ -52,9 +52,9 @@ struct instructEntry
 
 struct symtableEntry
 {
-    int id;
-    int parent;
-    symtableEntry(int id, int parent)
+    string id;
+    string parent;
+    symtableEntry(string id, string parent)
     {
         this->id = id;
         this->parent = parent;
