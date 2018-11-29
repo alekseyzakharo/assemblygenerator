@@ -21,6 +21,51 @@ Instructions::Instructions(string fileLocation)
     openAndRead(fileLocation);
 }
 
+void Instructions::SetRes(string id, string res)
+{
+    for(int i =0;i<list.size();i++)
+    {
+        if(list.at(i).id.compare(id) == 0)
+        {
+            instructEntry tmp = list.at(i);
+            list.erase(list.begin()+i);
+            tmp.res = res;
+            list.insert(list.begin()+i,tmp);
+            break;
+        }
+    }
+}
+
+void Instructions::SetOp1(string id, string op1)
+{
+    for(int i =0;i<list.size();i++)
+    {
+        if(list.at(i).id.compare(id) == 0)
+        {
+            instructEntry tmp = list.at(i);
+            list.erase(list.begin()+i);
+            tmp.op1 = op1;
+            list.insert(list.begin()+i,tmp);
+            break;
+        }
+    }
+}
+
+void Instructions::SetOp2(string id, string op2)
+{
+    for(int i =0;i<list.size();i++)
+    {
+        if(list.at(i).id.compare(id) == 0)
+        {
+            instructEntry tmp = list.at(i);
+            list.erase(list.begin()+i);
+            tmp.op2 = op2;
+            list.insert(list.begin()+i,tmp);
+            break;
+        }
+    }
+}
+
 void Instructions::openAndRead(string fileLocation)
 {
     string symbolfile = fileName;

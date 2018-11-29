@@ -36,6 +36,8 @@ void Assembler::Build()
     PrintHeaderInfo();
     printf("\t.global main\n");
     printf("\t.data\n\n");
+
+    DeclareGlobals();
     DeclareStrings();
 
     cout<<endl<<endl<<endl<<endl;
@@ -52,7 +54,47 @@ void Assembler::PrintHeaderInfo()
 
 void Assembler::DeclareGlobals()
 {
+    for(symbolEntry s: symbol->list)
+    {
+        if(s.scope.compare("GLOBAL") == 0 && !s.type.compare("LABEL") == 0)
+        {
+            if(s.isArray.compare("true") == 0)
+            {
+                int arrSize;
+                stringstream(s.arrSize)>>arrSize;
+                string zeros = "";
+                for(int i =0;i<arrSize-1;i++)
+                {
+                    zeros += "0, ";
+                }
+                zeros += "0";
+                cout<<s.name<<": .quad "<<zeros<<endl;
+            }
+            else
+            {
+                cout<<s.name<<": .quad 0"<<endl;
+            }
+            
 
+            //replace newly created string identifier into instructions 
+            for(instructEntry n: instruct->list)
+            {
+                if(n.op1.compare(s.id) == 0)
+                {              
+                    instruct->SetOp1(n.id, s.name);
+                }
+                else if(n.op2.compare(s.id) == 0)
+                {
+                    instruct->SetOp1(n.id, s.name);
+                }
+                else if(n.res.compare(s.id) == 0)
+                {
+                    instruct->SetRes(n.id, s.name);
+                }
+            
+            }
+        }
+    }
 }
 
 
@@ -69,18 +111,19 @@ void Assembler::DeclareStrings()
             //replace newly created string identifier into instructions 
             for(instructEntry n: instruct->list)
             {
-                if(n.op1.compare(s.id))
-                {
-                    n.op1 = uniqueID;
+                if(n.op1.compare(s.id) == 0)
+                {              
+                    instruct->SetOp1(n.id, uniqueID);
                 }
-                else if(n.op2.compare(s.id))
+                else if(n.op2.compare(s.id) == 0)
                 {
-                    n.op2 = uniqueID;
+                    instruct->SetOp1(n.id, uniqueID);
                 }
-                else if(n.res.compare(s.id))
+                else if(n.res.compare(s.id) == 0)
                 {
-                    n.res = uniqueID;
+                    instruct->SetRes(n.id, uniqueID);
                 }
+            
             }
         }
     }

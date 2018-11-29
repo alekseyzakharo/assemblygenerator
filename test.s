@@ -4,6 +4,11 @@
 	.global main
 	.data
 
+abc: .quad 0, 0, 0, 0, 0
+x: .quad 0
+y: .quad 0
+z: .quad 0
+w: .quad 0
 s0: .ascii "n = %d\n"
 s1: .ascii "printf"
 
@@ -11,6 +16,7 @@ s1: .ascii "printf"
 
 
 id   tabid   name    type    scope   isArray arrSize isInited    i   b
+0 0 abc INT GLOBAL true 5 false -1 false
 0 0 x INT GLOBAL false -1 false -1 false
 1 0 y INT GLOBAL false -1 false -1 false
 2 0 z INT GLOBAL false -1 false -1 false
@@ -27,7 +33,7 @@ id   tabid   name    type    scope   isArray arrSize isInited    i   b
 13 1 "printf" STR CONST false -1 false -1 false
 14 1 2 INT CONST false -1 false -1 false
 id   res   opcode   op1  op2   
-0 4 ASSIGN 3 -1
+0 w ASSIGN 3 -1
 1 5 LABEL -1 -1
 2 7 ASSIGN 8 -1
 3 5 LT 7 6
@@ -36,9 +42,9 @@ id   res   opcode   op1  op2
 6 9 ASSIGN 11 -1
 7 7 ASSIGN 9 -1
 8 3 GOTO -1 -1
-9 -1 PARAM 12 -1
+9 -1 PARAM s0 -1
 10 -1 PARAM 6 -1
-11 -1 CALL 13 14
+11 -1 CALL s1 14
 12 -1 RET 6 -1
 13 -1 RET -1 -1
 id   parent   

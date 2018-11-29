@@ -10,12 +10,17 @@ using namespace std;
 class Instructions{
 
     public:
+        vector<instructEntry> list;
+
         Instructions();
         Instructions(string fileLocation);
 
         void Print();
 
-        vector<instructEntry> list;
+        void SetRes(string id, string res);
+        void SetOp1(string id, string op1);
+        void SetOp2(string id, string op2);
+       
 
     private:
 
