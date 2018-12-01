@@ -2,7 +2,7 @@
 #define _SYMBOLS_H
 
 #include "GLOBALS.h"
-#include <vector>
+#include <deque>
 #include <string>
 
 using namespace std;
@@ -15,8 +15,9 @@ class Symbols
         Symbols(string fileLocation);
 
         void Print();
+        void RemoveFromList(string id);
 
-        vector<symbolEntry> list;
+        deque<symbolEntry> list;
 
     private:
         

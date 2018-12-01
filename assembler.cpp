@@ -39,6 +39,16 @@ void Assembler::Build()
 
     DeclareGlobals();
     DeclareStrings();
+    //remove assignment instructions above the first label
+    RemoveAssignInstruct();
+    //we know at this point that the next instructions is a label for a function
+
+
+
+    cout<<endl<<endl;
+
+    printf("\t.text\n\n");
+
 
     cout<<endl<<endl<<endl<<endl;
 }
@@ -54,9 +64,14 @@ void Assembler::PrintHeaderInfo()
 
 void Assembler::DeclareGlobals()
 {
-    for(symbolEntry s: symbol->list)
+    while(true)
     {
-        if(s.scope.compare("GLOBAL") == 0 && !s.type.compare("LABEL") == 0)
+        symbolEntry s = symbol->list.front();
+        if(s.type.compare("LABEL") == 0)
+        {
+            return;
+        }
+        else if(s.scope.compare("GLOBAL") == 0)
         {
             if(s.isArray.compare("true") == 0)
             {
@@ -74,34 +89,34 @@ void Assembler::DeclareGlobals()
             {
                 cout<<s.name<<": .quad 0"<<endl;
             }
-            
-
-            //replace newly created string identifier into instructions 
-            for(instructEntry n: instruct->list)
-            {
-                if(n.op1.compare(s.id) == 0)
-                {              
-                    instruct->SetOp1(n.id, s.name);
-                }
-                else if(n.op2.compare(s.id) == 0)
-                {
-                    instruct->SetOp1(n.id, s.name);
-                }
-                else if(n.res.compare(s.id) == 0)
-                {
-                    instruct->SetRes(n.id, s.name);
-                }
-            
-            }
+            ReplaceNameInInstructions(s.id,s.name);
         }
-    }
+        else if(s.scope.compare("CONST") == 0)
+        {
+            //this one must be a global variable that the const is being set to
+            symbolEntry n = symbol->list.at(1);
+            
+            cout<<n.name<<": .quad "<<s.name<<endl;
+            
+            ReplaceNameInInstructions(n.id,n.name);
+
+            symbol->list.pop_front();
+        }
+        symbol->list.pop_front();
+    }  
 }
 
 
 void Assembler::DeclareStrings()
 {
-    for(symbolEntry s: symbol->list)
+    int i = 0;
+    while(true)
     {
+        if(i == symbol->list.size())
+        {
+            return;
+        }
+        symbolEntry s = symbol->list.at(i);
         if(s.type.compare("STR") == 0)
         {
             //create unique string identifier
@@ -109,22 +124,63 @@ void Assembler::DeclareStrings()
             cout<< uniqueID <<": .ascii " << s.name << endl; 
 
             //replace newly created string identifier into instructions 
-            for(instructEntry n: instruct->list)
-            {
-                if(n.op1.compare(s.id) == 0)
-                {              
-                    instruct->SetOp1(n.id, uniqueID);
-                }
-                else if(n.op2.compare(s.id) == 0)
-                {
-                    instruct->SetOp1(n.id, uniqueID);
-                }
-                else if(n.res.compare(s.id) == 0)
-                {
-                    instruct->SetRes(n.id, uniqueID);
-                }
-            
-            }
+            ReplaceNameInInstructions(s.id,uniqueID);
+            //remove the symbol from the list
+            symbol->RemoveFromList(s.id);
+            continue;
+        }
+        i++;
+    }
+}
+
+void Assembler::ReplaceNameInInstructions(string id, string newID)
+{
+    for(instructEntry n: instruct->list)
+    {
+        if(n.op1.compare(id) == 0)
+        {              
+            instruct->SetOp1(n.id, newID);
+        }
+        else if(n.op2.compare(id) == 0)
+        {
+            instruct->SetOp1(n.id, newID);
+        }
+        else if(n.res.compare(id) == 0)
+        {
+            instruct->SetRes(n.id, newID);
+        }
+    
+    }
+}
+
+void Assembler::RemoveAssignInstruct()
+{
+    while(true)
+    {
+        instructEntry s = instruct->list.front();
+        if(s.opcode.compare("LABEL") == 0)
+        {
+            return;
+        }
+        if(s.opcode.compare("ASSIGN") == 0)
+        {
+            instruct->list.pop_front();
         }
     }
+}
+
+void GetCommandLineArgs()
+{
+    
+}
+
+
+void Assembler::PrintLabel(string label)
+{
+    cout<<label<<":"<<endl;
+}
+
+void Assembler::GlobalAssignment()
+{
+    
 }

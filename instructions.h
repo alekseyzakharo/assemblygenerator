@@ -2,7 +2,7 @@
 #define _INSTRUCTIONS_H
 
 #include "GLOBALS.h"
-#include <string>
+#include <deque>
 #include <vector>
 
 using namespace std;
@@ -10,7 +10,7 @@ using namespace std;
 class Instructions{
 
     public:
-        vector<instructEntry> list;
+        deque<instructEntry> list;
 
         Instructions();
         Instructions(string fileLocation);
@@ -20,6 +20,8 @@ class Instructions{
         void SetRes(string id, string res);
         void SetOp1(string id, string op1);
         void SetOp2(string id, string op2);
+
+        void Remove(string id);
        
 
     private:

@@ -19,7 +19,6 @@ int main(int argc, char * argv[]){
         s = new Assembler("");
     }
 
-
     s->Build();
 
     s->PrintCSVContent();

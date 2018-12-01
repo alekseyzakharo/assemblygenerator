@@ -61,5 +61,24 @@ struct symtableEntry
     }
 };
 
+struct localVariable{
+    string name;
+    string offset;
+};
+
+struct Method{
+    int size;
+    
+    string name;
+
+    deque<localVariable> list;
+
+    void Add()
+    {
+        
+    }
+    
+};
+
 
 #endif

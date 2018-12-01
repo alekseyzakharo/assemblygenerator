@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 const string fileName = "instructions.csv";
 
@@ -38,7 +39,7 @@ void Instructions::SetRes(string id, string res)
 
 void Instructions::SetOp1(string id, string op1)
 {
-    for(int i =0;i<list.size();i++)
+    for(int i =0; i < list.size();i++)
     {
         if(list.at(i).id.compare(id) == 0)
         {
@@ -62,6 +63,17 @@ void Instructions::SetOp2(string id, string op2)
             tmp.op2 = op2;
             list.insert(list.begin()+i,tmp);
             break;
+        }
+    }
+}
+
+void Instructions::Remove(string id)
+{
+    for(int i =0;i<list.size();i++)
+    {
+        if(list.at(i).id.compare(id) == 0)
+        {
+            list.erase(list.begin()+i);
         }
     }
 }

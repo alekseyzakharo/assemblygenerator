@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 //static declations
 static string bts(bool val);
@@ -86,5 +87,21 @@ void Symbols::Print()
     for(symbolEntry n: list)
     {
         cout<<n.id<<" "<<n.tabid<<" "<<n.name<<" "<<n.type<<" "<<n.scope<<" "<<n.isArray<<" "<<n.arrSize<<" "<<n.isInited<<" "<<n.i<<" "<<n.b<<endl;
+    }
+}
+
+void Symbols::RemoveFromList(string id)
+{
+    if(list.size() == 0)
+    {
+        return;
+    }
+    for(int i =0;i < list.size();i++)
+    {
+        if(list.at(i).id.compare(id) == 0)
+        {
+            list.erase(list.begin()+i);
+            break;
+        }
     }
 }

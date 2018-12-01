@@ -2,7 +2,7 @@
 #define _SYMTABLE_H
 
 #include "GLOBALS.h"
-#include <vector>
+#include <deque>
 #include <string>
 
 class Symtable
@@ -14,7 +14,7 @@ class Symtable
         void Print();
 
     private:
-        vector<symtableEntry> list;
+        deque<symtableEntry> list;
 
         void openAndRead(string fileLocation);
         void Insert(string id, string parent);
