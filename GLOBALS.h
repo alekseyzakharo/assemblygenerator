@@ -2,8 +2,11 @@
 #define _GLOBALS_H
 
 #include <string>
+#include <deque>
 
 using namespace std;
+
+const int VARBYTESIZE = 16;
 
 struct symbolEntry
 {
@@ -64,21 +67,53 @@ struct symtableEntry
 struct localVariable{
     string name;
     string offset;
+
+    localVariable(string name, string offset)
+    {
+        this->name = name;
+        this->offset = offset;
+    }
 };
 
 struct Method{
     int size;
-    
     string name;
-
     deque<localVariable> list;
 
-    void Add()
+    Method(string name)
     {
-        
+        size = 0;
+        this->name = name;
     }
-    
+
+    string FindOffset(string name)
+    {
+        int size = list.size();
+        for(int i = 0;i<size;i++)
+        {
+            if(list.at(i).name.compare(name) == 0)
+            {
+                return list.at(i).offset;
+            }
+        }
+        return "";
+    }
+
+    string FindName(string offset)
+    {
+        int size = list.size();
+        for(int i = 0;i<size;i++)
+        {
+            if(list.at(i).offset.compare(offset) == 0)
+            {
+                return list.at(i).name;
+            }
+        }
+        return "";
+    }
+
 };
 
+enum OPCODES {ADD, SUB, MUL, DIV, READ, WRITE, ASSIGN, PARAM, CALL, RET};
 
 #endif

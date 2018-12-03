@@ -78,6 +78,31 @@ void Instructions::Remove(string id)
     }
 }
 
+instructEntry Instructions::GetByRes(string res)
+{
+    int size = list.size();
+    for(int i = 0;i<size;i++)
+    {
+        if(list.at(i).res.compare(res) == 0)
+        {
+            return list.at(i);
+        }
+    }
+    return instructEntry("","","","","");
+}
+
+void Instructions::InsertLabel(string id, string labelName)
+{
+    for(int i =0; i < list.size() ;i++)
+    {
+        if(list.at(i).id.compare(id) == 0)
+        {
+            list.insert(list.begin()+i,instructEntry("-1",labelName, "LABEL","-1","-1"));
+            return;
+        }
+    }
+}
+
 void Instructions::openAndRead(string fileLocation)
 {
     string symbolfile = fileName;

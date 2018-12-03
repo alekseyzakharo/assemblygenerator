@@ -17,6 +17,9 @@ class Symbols
         void Print();
         void RemoveFromList(string id);
 
+        string GetName(string id);
+
+
         deque<symbolEntry> list;
 
     private:

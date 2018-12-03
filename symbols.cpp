@@ -105,3 +105,15 @@ void Symbols::RemoveFromList(string id)
         }
     }
 }
+
+string Symbols::GetName(string id)
+{
+    for(int i =0;i < list.size();i++)
+    {
+        symbolEntry s = list.at(i);
+        if(s.id.compare(id) == 0)
+        {
+            return s.name;
+        }
+    }
+}

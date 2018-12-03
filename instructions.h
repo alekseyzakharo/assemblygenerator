@@ -22,7 +22,10 @@ class Instructions{
         void SetOp2(string id, string op2);
 
         void Remove(string id);
-       
+
+        instructEntry GetByRes(string res);
+        
+        void InsertLabel(string id, string labelName);
 
     private:
 
